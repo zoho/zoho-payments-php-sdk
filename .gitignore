@@ -1,0 +1,28 @@
+# Composer
+/vendor/
+composer.lock
+
+# PHPUnit
+/.phpunit.cache/
+/.phpunit.result.cache
+/phpunit.xml.dist.bak
+
+# PHPStan
+/.phpstan.cache/
+
+# IDE
+/.idea/
+/.vscode/
+*.iml
+
+# Claude Code
+/.claude/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Local
+*.local
+*.env
+.env
