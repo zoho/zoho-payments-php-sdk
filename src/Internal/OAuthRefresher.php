@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Zoho\Payments\Internal;
 
+use InvalidArgumentException;
 use Zoho\Payments\Auth\OAuthToken;
 use Zoho\Payments\Edition;
 use Zoho\Payments\Exception\ConnectionException;
@@ -24,16 +25,16 @@ final class OAuthRefresher
         Edition $edition,
     ): OAuthToken {
         if ($refreshToken === '') {
-            throw new \InvalidArgumentException('refresh_token must not be empty');
+            throw new InvalidArgumentException('refresh_token must not be empty');
         }
         if ($clientId === '') {
-            throw new \InvalidArgumentException('client_id must not be empty');
+            throw new InvalidArgumentException('client_id must not be empty');
         }
         if ($clientSecret === '') {
-            throw new \InvalidArgumentException('client_secret must not be empty');
+            throw new InvalidArgumentException('client_secret must not be empty');
         }
         if ($redirectUri === '') {
-            throw new \InvalidArgumentException('redirect_uri must not be empty');
+            throw new InvalidArgumentException('redirect_uri must not be empty');
         }
 
         $url = $edition->accountsUrl() . '/oauth/v2/token';

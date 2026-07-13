@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Zoho\Payments\Param;
 
+use InvalidArgumentException;
+
 /** Postal address (`country` is required). */
 final class PostalAddressParams
 {
@@ -17,7 +19,7 @@ final class PostalAddressParams
         public readonly ?string $postalCode = null,
     ) {
         if ($country === '') {
-            throw new \InvalidArgumentException('country is required');
+            throw new InvalidArgumentException('country is required');
         }
     }
 

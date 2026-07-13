@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Zoho\Payments;
 
+use InvalidArgumentException;
 use Zoho\Payments\Auth\OAuthToken;
 use Zoho\Payments\Internal\Defaults;
 use Zoho\Payments\Internal\TokenManager;
@@ -53,7 +54,7 @@ final class ZohoPaymentsClientBuilder
         } elseif (is_string($token)) {
             $this->accessToken = $token;
         } else {
-            throw new \InvalidArgumentException('oauthToken must be a string or OAuthToken');
+            throw new InvalidArgumentException('oauthToken must be a string or OAuthToken');
         }
         return $this;
     }
@@ -83,10 +84,10 @@ final class ZohoPaymentsClientBuilder
     public function addDefaultHeader(string $name, string $value): self
     {
         if ($name === '') {
-            throw new \InvalidArgumentException('header name must not be empty');
+            throw new InvalidArgumentException('header name must not be empty');
         }
         if (in_array(strtolower($name), self::RESERVED_HEADERS, true)) {
-            throw new \InvalidArgumentException(sprintf(
+            throw new InvalidArgumentException(sprintf(
                 "header '%s' is managed by the SDK and cannot be overridden",
                 $name,
             ));
@@ -103,17 +104,17 @@ final class ZohoPaymentsClientBuilder
         $this->consumed = true;
 
         if ($this->accountId === null || $this->accountId === '') {
-            throw new \InvalidArgumentException('accountId is required');
+            throw new InvalidArgumentException('accountId is required');
         }
         if ($this->edition === null) {
-            throw new \InvalidArgumentException('edition is required');
+            throw new InvalidArgumentException('edition is required');
         }
         if ($this->accessToken === null || $this->accessToken === '') {
-            throw new \InvalidArgumentException('oauthToken is required');
+            throw new InvalidArgumentException('oauthToken is required');
         }
 
         if ($this->httpClient !== null && $this->connectTimeout !== null) {
-            throw new \InvalidArgumentException(
+            throw new InvalidArgumentException(
                 'connectTimeout and a custom httpClient are mutually exclusive',
             );
         }

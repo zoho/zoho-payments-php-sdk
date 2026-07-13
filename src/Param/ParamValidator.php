@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Zoho\Payments\Param;
 
+use InvalidArgumentException;
+
 final class ParamValidator
 {
     public const MAX_DESCRIPTION_LENGTH = 500;
@@ -16,7 +18,7 @@ final class ParamValidator
             return;
         }
         if (strlen($description) > self::MAX_DESCRIPTION_LENGTH) {
-            throw new \InvalidArgumentException(sprintf(
+            throw new InvalidArgumentException(sprintf(
                 'description must be at most %d characters',
                 self::MAX_DESCRIPTION_LENGTH,
             ));
@@ -29,7 +31,7 @@ final class ParamValidator
             return;
         }
         if (strlen($invoiceNumber) > self::MAX_INVOICE_NUMBER_LENGTH) {
-            throw new \InvalidArgumentException(sprintf(
+            throw new InvalidArgumentException(sprintf(
                 'invoice_number must be at most %d characters',
                 self::MAX_INVOICE_NUMBER_LENGTH,
             ));
@@ -42,7 +44,7 @@ final class ParamValidator
             return;
         }
         if (strlen($referenceNumber) > self::MAX_REFERENCE_LENGTH) {
-            throw new \InvalidArgumentException(sprintf(
+            throw new InvalidArgumentException(sprintf(
                 'reference number must be at most %d characters',
                 self::MAX_REFERENCE_LENGTH,
             ));

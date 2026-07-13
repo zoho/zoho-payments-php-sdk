@@ -85,18 +85,35 @@ final class JsonUtil
     }
 
     /**
+     * Traverses $keys as a nested path: each key drills into the object returned by the previous step.
+     * Throws if any segment is absent or not an object.
+     *
      * @param array<string, mixed>|null $body
      * @return array<string, mixed>
      */
     public static function getObjectRequired(?array $body, string ...$keys): array
     {
-        $obj = self::getObject($body, ...$keys);
-        if ($obj === null) {
+        $current = $body;
+        foreach ($keys as $key) {
+            if ($current === null || $current === []) {
+                throw new ZohoPaymentsException(
+                    'Response body is null; expected object at key path: ' . implode(' -> ', $keys),
+                );
+            }
+            $v = $current[$key] ?? null;
+            if (!is_array($v) || (count($v) > 0 && array_is_list($v))) {
+                throw new ZohoPaymentsException(
+                    'Expected JSON object at key path: ' . implode(' -> ', $keys),
+                );
+            }
+            $current = $v;
+        }
+        if ($current === null) {
             throw new ZohoPaymentsException(
-                'Expected JSON object under one of keys: ' . implode(', ', $keys),
+                'Expected JSON object at key path: ' . implode(' -> ', $keys),
             );
         }
-        return $obj;
+        return $current;
     }
 
     /**

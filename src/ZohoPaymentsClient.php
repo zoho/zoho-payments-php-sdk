@@ -14,7 +14,9 @@ use Zoho\Payments\Services\PaymentMethodService;
 use Zoho\Payments\Services\PaymentMethodSessionService;
 use Zoho\Payments\Services\PaymentService;
 use Zoho\Payments\Services\PaymentSessionService;
+use Zoho\Payments\Services\PayoutService;
 use Zoho\Payments\Services\RefundService;
+use Zoho\Payments\Services\SplitSettlementService;
 
 /** The main Zoho Payments client; build via ZohoPayments::builder(). */
 final class ZohoPaymentsClient
@@ -32,6 +34,8 @@ final class ZohoPaymentsClient
     private PaymentMethodSessionService $paymentMethodSessions;
     private MandateService $mandates;
     private CollectService $collect;
+    private SplitSettlementService $splitSettlement;
+    private PayoutService $payouts;
 
     public function __construct(
         ZohoHttpClient $httpClient,
@@ -51,6 +55,8 @@ final class ZohoPaymentsClient
         $this->paymentMethodSessions = new PaymentMethodSessionService($httpClient);
         $this->mandates = new MandateService($httpClient);
         $this->collect = new CollectService($httpClient);
+        $this->splitSettlement = new SplitSettlementService($httpClient);
+        $this->payouts = new PayoutService($httpClient);
     }
 
     public function paymentLinks(): PaymentLinkService
@@ -120,6 +126,22 @@ final class ZohoPaymentsClient
             );
         }
         return $this->collect;
+    }
+
+    // Requires Edition::IN or Edition::IN_SANDBOX.
+    public function splitSettlement(): SplitSettlementService
+    {
+        if (!$this->edition->isIn()) {
+            throw new \BadMethodCallException(
+                'SplitSettlementService is only available for Edition::IN',
+            );
+        }
+        return $this->splitSettlement;
+    }
+
+    public function payouts(): PayoutService
+    {
+        return $this->payouts;
     }
 
     public function updateToken(string $newAccessToken): void

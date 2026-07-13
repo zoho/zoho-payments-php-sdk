@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Zoho\Payments\Param;
 
+use InvalidArgumentException;
+
 final class MandateEnrollmentSessionCreateParams
 {
     private const TYPE = 'mandate_enrollment';
@@ -28,7 +30,7 @@ final class MandateEnrollmentSessionCreateParams
         ParamHelpers::require($customerId, 'customer_id');
         ParamHelpers::require($description, 'description');
         if ($maxRetryCount !== null && ($maxRetryCount < 1 || $maxRetryCount > 3)) {
-            throw new \InvalidArgumentException('max_retry_count must be between 1 and 3');
+            throw new InvalidArgumentException('max_retry_count must be between 1 and 3');
         }
         ParamValidator::validateDescription($description);
         ParamValidator::validateInvoiceNumber($invoiceNumber);

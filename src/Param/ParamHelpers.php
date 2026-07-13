@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Zoho\Payments\Param;
 
+use InvalidArgumentException;
+
 /** Internal helpers for param constructors: required-field validation, any-field-required checks, metadata flattening. */
 final class ParamHelpers
 {
@@ -11,10 +13,10 @@ final class ParamHelpers
     public static function require($value, string $name): void
     {
         if ($value === null) {
-            throw new \InvalidArgumentException(sprintf('%s is required', $name));
+            throw new InvalidArgumentException(sprintf('%s is required', $name));
         }
         if (is_string($value) && $value === '') {
-            throw new \InvalidArgumentException(sprintf('%s must not be empty', $name));
+            throw new InvalidArgumentException(sprintf('%s must not be empty', $name));
         }
     }
 
@@ -26,7 +28,7 @@ final class ParamHelpers
                 return;
             }
         }
-        throw new \InvalidArgumentException('at least one field must be provided');
+        throw new InvalidArgumentException('at least one field must be provided');
     }
 
     /**

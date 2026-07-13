@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Zoho\Payments\Param;
 
+use InvalidArgumentException;
+
 /** Hosted-page configuration. `description`, `successUrl` and `failureUrl` are required. */
 final class HostedPageParams
 {
@@ -22,13 +24,13 @@ final class HostedPageParams
         public readonly ?string $udf5 = null,
     ) {
         if ($description === '') {
-            throw new \InvalidArgumentException('description is required');
+            throw new InvalidArgumentException('description is required');
         }
         if ($successUrl === '') {
-            throw new \InvalidArgumentException('success_url is required');
+            throw new InvalidArgumentException('success_url is required');
         }
         if ($failureUrl === '') {
-            throw new \InvalidArgumentException('failure_url is required');
+            throw new InvalidArgumentException('failure_url is required');
         }
     }
 

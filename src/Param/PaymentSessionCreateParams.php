@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Zoho\Payments\Param;
 
+use InvalidArgumentException;
+
 final class PaymentSessionCreateParams
 {
     /** @var list<MetaDataParams>|null */
@@ -25,10 +27,10 @@ final class PaymentSessionCreateParams
         ParamHelpers::require($currency, 'currency');
         ParamHelpers::require($description, 'description');
         if ($expiresIn !== null && ($expiresIn < 300 || $expiresIn > 900)) {
-            throw new \InvalidArgumentException('expires_in must be between 300 and 900 seconds');
+            throw new InvalidArgumentException('expires_in must be between 300 and 900 seconds');
         }
         if ($maxRetryCount !== null && ($maxRetryCount < 1 || $maxRetryCount > 5)) {
-            throw new \InvalidArgumentException('max_retry_count must be between 1 and 5');
+            throw new InvalidArgumentException('max_retry_count must be between 1 and 5');
         }
         ParamValidator::validateDescription($description);
         ParamValidator::validateInvoiceNumber($invoiceNumber);

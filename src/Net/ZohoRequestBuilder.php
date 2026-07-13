@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Zoho\Payments\Net;
 
+use InvalidArgumentException;
+
 final class ZohoRequestBuilder
 {
     private ?RequestMethod $method = null;
@@ -63,10 +65,10 @@ final class ZohoRequestBuilder
     public function build(): ZohoRequest
     {
         if ($this->method === null) {
-            throw new \InvalidArgumentException('method is required');
+            throw new InvalidArgumentException('method is required');
         }
         if ($this->url === null || $this->url === '') {
-            throw new \InvalidArgumentException('url is required');
+            throw new InvalidArgumentException('url is required');
         }
         return new ZohoRequest(
             method: $this->method,
