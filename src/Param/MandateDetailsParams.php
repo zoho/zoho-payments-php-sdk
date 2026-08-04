@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Zoho\Payments\Param;
 
+use InvalidArgumentException;
+
 final class MandateDetailsParams
 {
     public function __construct(
@@ -22,7 +24,7 @@ final class MandateDetailsParams
         ParamHelpers::require($description, 'description');
         ParamHelpers::require($amountRule, 'amount_rule');
         if ($amountRule === 'variable' && $maxAmount === null) {
-            throw new \InvalidArgumentException("max_amount is required when amount_rule is 'variable'");
+            throw new InvalidArgumentException("max_amount is required when amount_rule is 'variable'");
         }
         ParamValidator::validateDescription($description);
     }

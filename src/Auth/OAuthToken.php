@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Zoho\Payments\Auth;
 
+use InvalidArgumentException;
+
 final class OAuthToken implements \JsonSerializable
 {
     private const REDACTED = '[REDACTED]';
@@ -14,7 +16,7 @@ final class OAuthToken implements \JsonSerializable
     public function __construct(string $accessToken, int $expiresIn)
     {
         if ($accessToken === '') {
-            throw new \InvalidArgumentException('access_token must not be empty');
+            throw new InvalidArgumentException('access_token must not be empty');
         }
         $this->accessToken = $accessToken;
         $this->expiresIn = $expiresIn;

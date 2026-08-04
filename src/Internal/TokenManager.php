@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Zoho\Payments\Internal;
 
+use InvalidArgumentException;
+
 /** Holds the current OAuth access token; updateToken() rotates it (no locking — PHP is shared-nothing per request). */
 final class TokenManager
 {
@@ -14,7 +16,7 @@ final class TokenManager
     public function __construct(string $accessToken)
     {
         if ($accessToken === '') {
-            throw new \InvalidArgumentException('access_token must not be empty');
+            throw new InvalidArgumentException('access_token must not be empty');
         }
         $this->accessToken = $accessToken;
     }
@@ -27,7 +29,7 @@ final class TokenManager
     public function updateToken(string $newAccessToken): void
     {
         if ($newAccessToken === '') {
-            throw new \InvalidArgumentException('new_access_token must not be empty');
+            throw new InvalidArgumentException('new_access_token must not be empty');
         }
         $this->accessToken = $newAccessToken;
     }

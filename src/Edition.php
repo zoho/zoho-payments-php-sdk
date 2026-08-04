@@ -40,7 +40,7 @@ enum Edition: string
     public static function fromString(string $name): self
     {
         if ($name === '') {
-            throw new \InvalidArgumentException('edition name must not be empty');
+            throw new InvalidArgumentException('edition name must not be empty');
         }
         $upper = strtoupper($name);
         foreach (self::cases() as $case) {
@@ -49,7 +49,7 @@ enum Edition: string
             }
         }
         $names = implode(', ', array_map(static fn (self $c) => $c->name, self::cases()));
-        throw new \InvalidArgumentException(
+        throw new InvalidArgumentException(
             sprintf('unknown edition: %s. Expected one of: %s', $name, $names),
         );
     }

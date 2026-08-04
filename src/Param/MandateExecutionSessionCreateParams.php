@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Zoho\Payments\Param;
 
+use InvalidArgumentException;
+
 final class MandateExecutionSessionCreateParams
 {
     private const TYPE = 'mandate_execution';
@@ -27,7 +29,7 @@ final class MandateExecutionSessionCreateParams
         ParamHelpers::require($description, 'description');
         ParamHelpers::require($invoiceNumber, 'invoice_number');
         if ($maxRetryCount !== null && ($maxRetryCount < 1 || $maxRetryCount > 3)) {
-            throw new \InvalidArgumentException('max_retry_count must be between 1 and 3');
+            throw new InvalidArgumentException('max_retry_count must be between 1 and 3');
         }
         ParamValidator::validateDescription($description);
         ParamValidator::validateInvoiceNumber($invoiceNumber);
