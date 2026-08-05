@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Zoho\Payments;
 
+use InvalidArgumentException;
+
 enum Edition: string
 {
     case IN = 'IN';
