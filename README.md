@@ -11,7 +11,7 @@ Official PHP SDK for the Zoho Payments API — supports IN, IN Sandbox, and US e
 
 ## Requirements
 
-- **PHP 8.1+**
+- **PHP 8.2+**
 - **ext-curl**, **ext-json**
 - A PSR-18 / PSR-17 implementation is **optional** — the SDK ships a cURL-backed transport by default.
 
